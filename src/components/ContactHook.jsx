@@ -1,7 +1,9 @@
 /////// 1 step; import useState from React
  //{useState} is to use Hooks
 
-import React, { useState } from "react";
+import React, { useReducer } from "react";
+import reducer from "./utils/ContactReducer";
+
 //this.state は　Hooks では使えない
 
 //same as below
@@ -11,12 +13,12 @@ import React, { useState } from "react";
 
 const ContactHook = () => {
   /////// step 2; make initial variable
-  const initialContactFormData = {
-    name: "",
-    message: "",
-    email: "",
-    userMessage: "",
-  };
+  // const initialContactFormData = {
+  //   name: "",
+  //   message: "",
+  //   email: "",
+  //   userMessage: "",
+  // };
 
 
   /////// step 3; useState syntax
@@ -24,18 +26,41 @@ const ContactHook = () => {
   // contactFormData: store contact data so that we can access the data from here like `contactFormData.message`
   // in class it is like `this.state.message` 
   // setContactFormData: method to uspdate state
-  const [contactFormData, setContactFormData] = useState(
-    initialContactFormData
-  );
 
+  // const [contactFormData, setContactFormData] = useState(
+  //   initialContactFormData
+  // );
 
+  const initialState = {
+    name: "",
+    message: "",
+    email: "",
+    userMessage: "",
+  }
 
-  function handleOnChange(event) {
-    setContactFormData({
-      // destructuring to get form data
-      // square brackets means that it's a key we're setting state with
-      ...contactFormData, // this is already here ( data already stored )
-      [event.target.name]: event.target.value // overwriting
+  const [store, dispatch]=useReducer(reducer, initialState) //reducer is in the utils folder
+  const {name, message, email, userMessage} = store;
+
+  // function handleOnChange(event) {
+  //   setContactFormData({
+  //     // destructuring to get form data
+  //     // square brackets means that it's a key we're setting state with
+  //     ...contactFormData, // this is already here ( data already stored )
+  //     [event.target.name]: event.target.value // overwriting
+  //   })
+  // }
+
+  function handleOnChange(event){
+    dispatch({
+      type: "setFormData",
+      data: event.target
+    })
+  }
+
+  function setUserMessage(userMessage){
+    dispatch({
+      type: 'setUserMessage',
+      data: userMessage
     })
   }
 
@@ -43,40 +68,22 @@ const ContactHook = () => {
   function handleSubmit (event){
     event.preventDefault();
     // console.log("Submitted!");
-    console.log(!isNaN(parseInt(contactFormData.message)));
+    // console.log(!isNaN(parseInt(message)));
     // console.log(this.state.message.toLowerCase().split(' ').join())
-    if (contactFormData.name.length === 0) {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "Name must be provided",
-      });
-    } else if (contactFormData.message.length === 0) {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "Message must be provided.",
-      });
-    } else if (!isNaN(parseInt(contactFormData.message))) {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "Message must not be a number",
-      });
-    } else if (contactFormData.email.length === 0) {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "Email must be provided.",
-      });
+    if (name.length === 0) {
+      setUserMessage("Name must be provided")
+    } else if (message.length === 0) {
+      setUserMessage("Message must be provided.")
+    } else if (!isNaN(parseInt(message))) {
+      setUserMessage("Message must not be a number")
+    } else if (email.length === 0) {
+      setUserMessage("Email must be provided.")
     } else if (
-      contactFormData.message.toLowerCase().split(" ").join("").includes("moist")
+      message.toLowerCase().split(" ").join("").includes("moist")
     ) {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "Please refrain from such language.",
-      });
+      setUserMessage("Please refrain from such language.")
     } else {
-      setContactFormData({
-        ...contactFormData,
-        userMessage: "All is okay!",
-      });
+      setUserMessage("All is okay!")
     }
   };
 
@@ -95,7 +102,7 @@ const ContactHook = () => {
           <input
             type="text"
             name="name"
-            value={contactFormData.name}
+            value={name}
             onChange={handleOnChange}
           ></input>
           <br></br>
@@ -105,7 +112,7 @@ const ContactHook = () => {
             name="message"
             rows="5"
             cols="33"
-            value={contactFormData.message}
+            value={message}
             onChange={handleOnChange}
           ></textarea>
           <br></br>
@@ -113,22 +120,22 @@ const ContactHook = () => {
           <input
             type="email"
             name="email"
-            value={contactFormData.email}
+            value={email}
             onChange={handleOnChange}
           ></input>
           <button onClick={handleSubmit}>Submit</button>
         </form>
 
         <p style={{ color: "blue" }}>
-          <b>{contactFormData.userMessage}</b>
+          <b>{userMessage}</b>
         </p>
       </div>
 
       <div>
         <h4>This is what you have entered:</h4>
-        <p>Name: {contactFormData.name}</p>
-        <p>Message: {contactFormData.message}</p>
-        <p>Email: {contactFormData.email}</p>
+        <p>Name: {name}</p>
+        <p>Message: {message}</p>
+        <p>Email: {email}</p>
       </div>
     </section>
   );
