@@ -1,6 +1,6 @@
 import React from "react";
 
-const pokemons = ["Jigglypuff", "Tapu Koko"]
+const pokemons = ["Jigglypuff", "Tapu Koko", "Blastoise", "Snorlax", "Klink", "Pickachu", "Beedrill"]
 function AnswerPage() {
     let pokemon = pokemons[Math.floor(Math.random() * pokemons.length)]
     return(
