@@ -1,8 +1,11 @@
 /////// 1 step; import useState from React
- //{useState} is to use Hooks
+//{useState} is to use Hooks
 
 import React, { useReducer } from "react";
 import reducer from "./utils/ContactReducer";
+import MessageCard from "./MessageCard";
+import ColourChoicePanel from "./ColourChoicePanel";
+import { useNavigate } from "react-router-dom";
 
 //this.state は　Hooks では使えない
 
@@ -12,6 +15,9 @@ import reducer from "./utils/ContactReducer";
 // }
 
 const ContactHook = () => {
+
+  let navigate = useNavigate();
+
   /////// step 2; make initial variable
   // const initialContactFormData = {
   //   name: "",
@@ -20,11 +26,10 @@ const ContactHook = () => {
   //   userMessage: "",
   // };
 
-
   /////// step 3; useState syntax
   // syntax of useState 'const [state, setState] = useState(initialState: from step 2)'
   // contactFormData: store contact data so that we can access the data from here like `contactFormData.message`
-  // in class it is like `this.state.message` 
+  // in class it is like `this.state.message`
   // setContactFormData: method to uspdate state
 
   // const [contactFormData, setContactFormData] = useState(
@@ -36,10 +41,12 @@ const ContactHook = () => {
     message: "",
     email: "",
     userMessage: "",
-  }
+    textColour: "#123456",
+    cardColour: "#000000",
+  };
 
-  const [store, dispatch]=useReducer(reducer, initialState) //reducer is in the utils folder
-  const {name, message, email, userMessage} = store;
+  const [store, dispatch] = useReducer(reducer, initialState); //reducer is in the utils folder
+  const { name, message, email, userMessage, textColour, cardColour } = store;
 
   // function handleOnChange(event) {
   //   setContactFormData({
@@ -50,51 +57,60 @@ const ContactHook = () => {
   //   })
   // }
 
-  function handleOnChange(event){
+  function handleOnChange(event) {
     dispatch({
       type: "setFormData",
-      data: event.target
-    })
+      data: event.target,
+    });
   }
 
-  function setUserMessage(userMessage){
+  function setUserMessage(userMessage) {
     dispatch({
-      type: 'setUserMessage',
-      data: userMessage
-    })
+      type: "setUserMessage",
+      data: userMessage,
+    });
   }
 
+  function setTextColour(colour) {
+    dispatch({
+      type: "setTextColour",
+      data: colour,
+    });
+  }
+  function setCardColour(colour) {
+    dispatch({
+      type: "setCardColour",
+      data: colour,
+    });
+  }
 
-  function handleSubmit (event){
+  function handleSubmit(event) {
     event.preventDefault();
     // console.log("Submitted!");
     // console.log(!isNaN(parseInt(message)));
     // console.log(this.state.message.toLowerCase().split(' ').join())
     if (name.length === 0) {
-      setUserMessage("Name must be provided")
+      setUserMessage("Name must be provided");
     } else if (message.length === 0) {
-      setUserMessage("Message must be provided.")
+      setUserMessage("Message must be provided.");
     } else if (!isNaN(parseInt(message))) {
-      setUserMessage("Message must not be a number")
+      setUserMessage("Message must not be a number");
     } else if (email.length === 0) {
-      setUserMessage("Email must be provided.")
-    } else if (
-      message.toLowerCase().split(" ").join("").includes("moist")
-    ) {
-      setUserMessage("Please refrain from such language.")
+      setUserMessage("Email must be provided.");
+    } else if (message.toLowerCase().split(" ").join("").includes("moist")) {
+      setUserMessage("Please refrain from such language.");
     } else {
-      setUserMessage("All is okay!")
+      // setUserMessage("All is okay!")
+      navigate("/thanks");
     }
-  };
-
+  }
 
   return (
     <section id="contact">
       <div>
         <h2>Contact</h2>
-        <a href="#top">Top</a>
       </div>
-      <h3>Contact me!</h3>
+      <h3>White me a card!</h3>
 
       <div>
         <form>
@@ -123,20 +139,30 @@ const ContactHook = () => {
             value={email}
             onChange={handleOnChange}
           ></input>
-          <button onClick={handleSubmit}>Submit</button>
         </form>
-
-        <p style={{ color: "blue" }}>
-          <b>{userMessage}</b>
-        </p>
       </div>
 
       <div>
         <h4>This is what you have entered:</h4>
-        <p>Name: {name}</p>
-        <p>Message: {message}</p>
-        <p>Email: {email}</p>
+        {/* pass name, message, email to Message props */}
+        <MessageCard
+          name={name}
+          message={message}
+          email={email}
+          textColour={textColour}
+          cardColour={cardColour}
+        />
+        <ColourChoicePanel
+          textColour={textColour}
+          cardColour={cardColour}
+          setCardColour={setCardColour}
+          setTextColour={setTextColour}
+        />
       </div>
+      <p style={{ color: "blue" }}>
+        <b>{userMessage}</b>
+      </p>
+      <button onClick={handleSubmit}>Submit</button>
     </section>
   );
 };

@@ -27,13 +27,6 @@ const Footer = (props) => {
         </Container>
 
     </Box>
-//     <footer>
-//     <h3>Visit again.</h3>
-//     <h5>
-    //   Whatever your problem may be, my fortune-telling shall lead to the
-    //   solution.
-//     </h5>
-//   </footer>
   );
 };
 

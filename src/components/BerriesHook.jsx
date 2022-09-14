@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const initialBerries = [
   "starf",
@@ -106,7 +107,7 @@ const BerriesHook = () => {
 
       <ul>
         {getFilteredBerries().map((berry, index) => {
-          return <li key={index}>{berry}</li>;
+          return <li key={index}><Link to={berry}>{berry}</Link></li>;
         })}
       </ul>
       <p>

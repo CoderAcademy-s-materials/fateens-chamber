@@ -7,10 +7,7 @@ function ReviewInput(props) {
       setValue(e.target.value);
     };
   
-    const handleOnClick = (e) => {
-      console.log("Clicked!")
-    }
-  
+   
     return (
       <div>
         <h3>Write me a review</h3>

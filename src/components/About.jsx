@@ -28,7 +28,6 @@ const About = () => {
     <section id="about">
       <div>
         <h2>About Me</h2>
-        <a href="#top">Top</a>
       </div>
       <h3>Greeting</h3>
       <p>
