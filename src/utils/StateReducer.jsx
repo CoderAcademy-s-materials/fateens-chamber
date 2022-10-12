@@ -1,5 +1,12 @@
 export default function reducer (state, action){
     switch(action.type){
+        case 'setCategories': {
+            return {
+                ...state,
+                categories: action.data
+            }
+        }
+
         case 'setPredictions': {
             return {
                 ...state,
@@ -7,7 +14,7 @@ export default function reducer (state, action){
             }
         }
 
-        case 'addPredictions': {
+        case 'addPrediction': {
             return {
                 ...state,
                 predictions: [action.data, ...state.predictions]
@@ -24,7 +31,7 @@ export default function reducer (state, action){
             }        
         }
 
-        case 'updatePredictions': {
+        case 'updatePrediction': {
             const prediction = state.predictions.find((prediction) => prediction.id == action.data.id)
             const updatedPrediction = Object.assign(prediction, action.data)
 
