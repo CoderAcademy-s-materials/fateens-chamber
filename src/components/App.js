@@ -22,6 +22,8 @@ import reducer from "../utils/StateReducer";
 import Predictions from "./Predictions";
 import PredictionDetails from "./PredictionDetails";
 import NewPrediction from "./NewPrediction";
+import Login from "./Login";
+import LoginBar from "./LoginBar";
 
 const sections = [
   {
@@ -67,6 +69,7 @@ function MainPage() {
     <div className="App">
       {/* <SimpleHome/> */}
       <Container maxWidth="lg">
+      <LoginBar/>
         <NavBar
           title="Fateen's Fortune-Telling Chamber"
           sections={sections}
@@ -88,6 +91,7 @@ function MainPage() {
         <Route path="predictions/:id" element={<PredictionDetails />} />
         <Route path="predictions/update/:id" element={<NewPrediction />} />
         <Route path="predictions/new" element={<NewPrediction />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
