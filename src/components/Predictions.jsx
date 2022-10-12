@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useGlobalState } from "./utils/StateContext";
+import { useGlobalState } from "../utils/StateContext";
 import { Link } from "react-router-dom";
 
 export default function Predictions() {

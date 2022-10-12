@@ -14,7 +14,7 @@ export default function reducer (state, action){
             }        
         }
 
-        case 'deletePredictions': {
+        case 'deletePrediction': {
             const updatedPredictions = state.predictions.filter((prediction) => {
                 return prediction.id !== parseInt(action.data)
             })

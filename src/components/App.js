@@ -5,7 +5,7 @@ import Reviews from "./Reviews";
 import Secrets from "./Secrets";
 import Footer from "./Footer";
 import { React, useState, useEffect, useReducer } from "react";
-import { StateContext } from "./utils/StateContext";
+import { StateContext } from "../utils/StateContext";
 import { getPredictions } from "../services/predictionServices";
 import Quiz from "./Quiz";
 import ContactHook from "./ContactHook";
@@ -17,8 +17,9 @@ import NavBar from "./NavBar";
 import NotFound from "./NotFound";
 import ThankYouPage from "./ThankYouPage";
 import JustBerry from "./JustBerry";
-import reducer from "./utils/StateReducer";
+import reducer from "../utils/StateReducer";
 import Predictions from "./Predictions";
+import PredictionDetails from "./PredictionDetails";
 
 const sections = [
   {
@@ -82,6 +83,7 @@ function MainPage() {
         <Route path="contact" element={<ContactHook />} />
         <Route path="thanks" element={<ThankYouPage />} />
         <Route path="predictions" element={<Predictions />} />
+        <Route path="predictions/:id" element={<PredictionDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

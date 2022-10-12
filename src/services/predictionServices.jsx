@@ -6,12 +6,15 @@ const predictions = [
 ]
 
 function transformPrediction(prediction) {
-    return {
-        author: prediction.username, 
-        category: prediction.category,
-        posted: prediction.posted,
+    console.log('prediction', prediction)
+    let transformPrediction = {
+        author: prediction.user_id, 
+        category: prediction.category_id,
+        posted: prediction.created_at,
         description: prediction.description
     }
+    console.log('transformpredicrtion',transformPrediction)
+    return transformPrediction;
 }
 
 export async function getPredictions() {
