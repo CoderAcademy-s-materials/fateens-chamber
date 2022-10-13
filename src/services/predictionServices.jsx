@@ -8,20 +8,17 @@ import fateenAPI from "../config/api"
 // ]
 
 function transformPrediction(prediction) {
-    // console.log('prediction', prediction)
     let transformPrediction = {
         author: prediction.username, 
         category: prediction.category,
         posted: prediction.posted,
         description: prediction.description
     }
-    // console.log('transformpredicrtion',transformPrediction)
     return transformPrediction;
 }
 
 export async function getPredictions() {
     const response = await fateenAPI.get('/api/predictions');
-    // console.log(response)
     return response.data;
 }
 
@@ -29,14 +26,12 @@ export async function getPredictions() {
 export async function getPrediction(id){
     const response = await fateenAPI.get(`/api/predictions/${id}`);
     let prediction = response.data;
-    // console.log("get prediction", prediction);
     return prediction ? transformPrediction(prediction) : null;
 }
 
 
 export async function createPrediction(prediction) {
     const response = await fateenAPI.post('/api/predictions', prediction);
-	// console.log(response.data);
 	return response.data;
 }
 
