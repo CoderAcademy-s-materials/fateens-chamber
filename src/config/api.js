@@ -3,7 +3,7 @@ import axios from 'axios';
 // Define an API
 const fateenAPI = axios.create({
     // baseURL: 'http://localhost:3000'
-    baseURL: 'https://fateen-api.up.railway.app/'
+    baseURL: 'https://fateen-api.up.railway.app'
 
 })
 
