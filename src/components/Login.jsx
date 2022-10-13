@@ -26,10 +26,12 @@ export default function Login() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    login()
+    login(formState)
       .then((data) => {
         let username = data.username;
         let token = data.token;
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", username);
         dispatch({ type: "setLoggedInUser", data: username });
         dispatch({ type: "setToken", data: token });
         navigate("/");

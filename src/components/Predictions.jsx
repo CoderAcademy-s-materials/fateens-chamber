@@ -11,17 +11,25 @@ export default function Predictions() {
 
   return (
     <div>
-      <Typography>Your predictions page!</Typography>
-      {predictions.map((prediction, index) => {
-        return (
-          <Link key={prediction.id} to={`/predictions/${prediction.id}`}>
-            <Typography>{prediction.description}</Typography>
-          </Link>
-        );
-      })}
-      <button onClick={() => navigate("/predictions/new")}>
-        Add Prediction
-      </button>
+      {loggedInUser ? (
+        <>
+          <Typography>Your predictions page!</Typography>
+          {predictions.map((prediction, index) => {
+            return (
+              <Link key={prediction.id} to={`/predictions/${prediction.id}`}>
+                <Typography>{prediction.description}</Typography>
+              </Link>
+            );
+          })}
+          <button onClick={() => navigate("/predictions/new")}>
+            Add Prediction
+          </button>
+        </>
+      ) : (
+        <>
+          <Typography>Please login.</Typography>
+        </>
+      )}
     </div>
   );
 }
