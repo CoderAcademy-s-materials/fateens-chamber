@@ -35,15 +35,23 @@ export async function getPrediction(id){
 
 
 export async function createPrediction(prediction) {
-    return prediction;
+    const response = await fateenAPI.post('/api/predictions', prediction);
+	console.log(response.data);
+	return response.data;
 }
 
 export async function deletePrediction(id) {
-    return id;
+    const response = await fateenAPI.delete(`/api/predictions/${id}`);
+	return response.data;
 }
 
 export async function updatePrediction(prediction) {
-    return prediction;
+    let updatedPrediction = {
+		description: prediction.description,
+		category_id: prediction.category_id,
+	}
+	const response = await fateenAPI.put(`/api/predictions/${prediction.id}`, updatedPrediction);
+	return response.data;
 }
 
 

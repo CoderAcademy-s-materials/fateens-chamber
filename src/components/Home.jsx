@@ -5,7 +5,7 @@ const Home = () => {
     const mainFeaturedPost = {
         title: "Find what you seek, be it an object, person, or luck.",
         description: "Welcome to Fateen's Fortune-Telling Chamber.",
-        image:"https://archives.bulbagarden.net/media/upload/4/4d/Fateen_Colo.png",
+        image:"//tcg.pokemon.com/assets/img/expansions/vivid-voltage/header/en-us/swsh-large-fallback.jpg",
         imageText: "main image description",
       };
     return(

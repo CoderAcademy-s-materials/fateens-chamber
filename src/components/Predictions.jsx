@@ -1,13 +1,27 @@
 import { Typography } from "@mui/material";
 import { useGlobalState } from "../utils/StateContext";
 import { Link, useNavigate } from "react-router-dom";
+import { getPredictions } from "../services/predictionServices";
+import { useEffect } from "react";
 
 export default function Predictions() {
-  const { store } = useGlobalState();
+  const { store, dispatch } = useGlobalState();
   const { predictions, loggedInUser } = store;
 
   let navigate = useNavigate();
-  if (!predictions) return "null";
+
+  useEffect(() => {
+    if (!loggedInUser) {
+      return;
+    }
+
+    getPredictions()
+      .then((predictions) =>
+        dispatch({ type: "setPredictions", data: predictions })
+      )
+      .catch((error) => console.log(error));
+  }, [loggedInUser, dispatch]);
+
 
   return (
     <div>

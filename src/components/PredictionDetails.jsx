@@ -21,7 +21,7 @@ export default function PredictionDetails() {
     function handleDelete() {
         deletePrediction(id).then(() => {
           dispatch({ type: "deletePrediction", data: id });
-          navigate(-1); // back button
+          navigate('/predictions'); // back button
         });
     }
 

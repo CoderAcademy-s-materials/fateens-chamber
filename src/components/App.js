@@ -119,7 +119,13 @@ function App() {
   // useState to create isLoading state
   const [isLoading, setIsLoading] = useState(true);
 
+  const { loggedInUser } = store;
+
+
   useEffect(() => {
+    if (!loggedInUser) {
+      return;
+    }
     getPredictions()
       .then((predictions) =>
         dispatch({ type: "setPredictions", data: predictions })
@@ -131,7 +137,7 @@ function App() {
         dispatch({ type: "setCategories", data: categories })
       )
       .catch((error) => console.log(error));
-  }, []);
+  }, [loggedInUser]);
 
   // useEffect Hook is like componentDidMount, componentDidUpdate
   // we use it so when page is updated we can load for 2 seconds
