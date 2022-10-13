@@ -1,10 +1,7 @@
-export async function getCategories() {
-  const categories = [
-    { id: 1, name: "Magic 8 Ball" },
-    { id: 2, name: "Hand reading" },
-    { id: 3, name: "Tarot cards" },
-    { id: 4, name: "Other" },
-  ];
+import fateenAPI from "../config/api"
 
-  return categories;
+export async function getCategories() {
+  const response = await fateenAPI.get('/api/categories')
+  return response.data;
+  
 }
