@@ -1,10 +1,11 @@
 import { Typography, Button } from "@mui/material";
 import { useGlobalState } from "../utils/StateContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   createPrediction,
   updatePrediction,
+  getPrediction,
 } from "../services/predictionServices";
 
 export default function NewPrediction() {
@@ -19,6 +20,21 @@ export default function NewPrediction() {
 
   let { id } = useParams();
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      getPrediction(id).then((prediction) => {
+        const category = categories.find(
+          (category) =>
+            category.name.toLowerCase() === prediction.category.toLowerCase()
+        );
+        setFormState({
+          category_id: category.id,
+          description: prediction.description,
+        });
+      });
+    }
+  }, [id, categories]);
 
   function handleChange(event) {
     setFormState({
